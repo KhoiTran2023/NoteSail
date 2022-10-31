@@ -1,0 +1,106 @@
+{% extends 'index/layout0.html' %}
+
+{% block head %}
+<style>
+#nav-capt {
+		font-family:system-ui;
+		z-index:2;
+		font-weight:lighter;
+		position:fixed;
+		right:2%;
+		top:4%;
+		font-size:150%;
+	}
+
+	.signup-href {
+		text-decoration:none;
+	}
+
+	#nav-capt a:visited {
+		color:blue;
+	}
+
+	#info-box {
+		width:50;
+		padding:2.5%;
+		height:55%;
+		overflow-y:auto;
+		background-color:white;
+		position:absolute;
+		left:22.5%;
+		top:20%;
+	}
+
+	input {
+		border-radius:4px;
+		border:solid;
+		height:25px;
+	}
+
+	#feedback-input {
+		height:140px;
+		width:80%;
+		border-radius:4px;
+		font-family:Arial;
+		padding:2%;
+	}
+
+	label {
+		font-family:system-ui;
+	}
+
+	#submit {
+		border-radius:3px;
+		border:solid blue;
+		color:white;
+		background-color:blue;
+		width:60px;
+		height:30px;
+		transition:0.15s;
+	}
+
+	#submit:hover {
+		background-color:#dbdbdb;
+		border-color:#dbdbdb;
+	}
+</style>
+<script>
+	function submit() {
+		document.getElementById("feedback-form").submit();
+	}
+</script>
+{% endblock %}
+
+{% block body %}
+{% if not user.is_authenticated %}
+{% load static %}
+<div id = "nav-capt">
+	<a href = "{% url 'signin' %}" class = "signup-href"> Log in </a>
+</div>
+{% endif %}
+{% if user.is_authenticated %}
+<div id = "nav-capt">
+	<a href = "{% url 'logout' %}" class = "signup-href"> Sign out </a>
+</div>
+{% endif %}
+<div id = "info-box">
+	<div style = "font-size:40px;font-family:system-ui;">Have any comments? Let us know.</div>
+	<div><br>
+		{% if message %}
+		<div style = "font-family:system-ui;color:blue;">{{message}}</div>
+		<br>
+		{% endif %}
+		<form action = "{% url 'feedbacktry' %}" method = "post" id = "feedback-form">
+			{% csrf_token %}
+			<label for = "name">Name (you can put anonymous, your name, or your username)</label><br>
+			<input type = "text" name = "name" placeholder = "Name Here" required><br><br>
+			<label for = "datetime"> Date & Time</label><br>
+			<input type = "datetime-local" name = "datetime" value = "2020-08-07T12:00" min = "2020-08-07T12:00" required><br><br>
+		</form>
+		<label for = "feedback">Feedback</label><br>
+			<textarea form = "feedback-form" type = "text" name = "feedback" id = "feedback-input"required>Enter your feedback here...</textarea><br><br>
+			<button id = submit onclick = "submit()">submit</button>
+	</div>
+</div>
+
+{% endblock %}

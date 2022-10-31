@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<link rel="stylesheet" href = "{% static 'css/home.css' %}"></link>
+	<link rel="icon" href = "{% static 'media/sail-boat-icon.ico' %}"></link>
+	<title>Home - NoteBoat by NoteSail</title>
+	<script>
+		function submit() {
+		document.querySelector("#create-form").submit();
+	};
+	</script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+</head>
+<body>
+	<div id = "pulsing-circle"><img src = "{% static 'media/7.svg' %}" width = "60px"></div>
+	<div id = "lateral-nav-div">
+		<div id = "logo-div">
+			<span id = "logo-span">NoteBoat
+				<img id = "logo-icon" src = "{% static 'media/sail-boat-icon.png' %}" width='48px'-/>
+			</span>
+		</div>
+		<div id = "nav-elements">
+			<div class = "nav-element"><a href = "{% url 'noteboat' %}">Dashboard</a></div><br>
+			<div class = "nav-element"><a href = "{% url 'contact' %}">Support</a></div><br>
+			<div class = "nav-element"><a href = "{% url 'feedbak' %}">Feedback</a></div><br>
+			<div class = "nav-element"><a href = "{% url 'termsco' %}">Terms & Conditions</a></div><br>
+			<div class = "nav-element"><a href = "{% url 'privacy' %}">Privacy Policy</a></div><br>
+			<div class = "nav-element"><a href = "{% url 'aboutus' %}">About Us</a></div><br>
+	{% if pinned %}
+			<div class = "nav-element">
+				<form action = "{% url 'document' %}" method = "POST">
+					{% csrf_token %}
+					
+				<button style = "color:gray;font-family:system-ui;font-size:25px;width:90;margin-left:-2%;text-decoration:none;margin-top:0%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border:none;text-align:left;">
+					
+					<img src = "{% static 'media/push-pin.png' %}" height = 25px> <span style = "position:relative;bottom:5px;">{{pinned}}</span>
+				</button>
+				<input readonly type = "text" name = document class = "input-no-show" value = "{{pinned}}">
+				</form>
+			</div>
+			<br>
+	{% endif %}
+		</div>
+	</div>
+	<div id = "nav-bar-top">
+		<form id = "search-form" action = "{% url 'searchdoc' %}" method = "POST">
+			{% csrf_token %}
+			<input name = "search" id = "search-bar" type = "text" placeholder="Search">
+		</form>
+		<button id = "search-button" type = "submit" form = "search-form"><img src = "{% static 'media/search-icon.ico' %}" width=20px/></button>
+		<form action = "{% url 'logout' %}">
+			<input id = "logout-button" type = "submit" value = "logout">
+		</form>
+	</div>
+	{% block body %}
+	<div id = "nav-bar-top-2">
+		<div id = "nav-bar-top-2-capt">
+			Welcome back, {{user.first_name}}
+		</div>
+		<div id = "nav-bar-top-2-quote">
+			{{quote}}
+		</div>
+		<form id = "create-form" action = "{% url 'createdoc' %}" method = "POST">
+			{% csrf_token %}
+			<input id = "input1" name = "createname" type = "text" placeholder = "Create document" required>
+		</form>
+		<img id = "create-icon" src = "{% static 'media/create-icon.png' %}" width = 35px onclick = "submit()">
+	</div>
+	<div id = "holster">
+		<div id = "document-display">
+			{% for document in documents %}
+				<div class = "document-item">
+					<span class = "icon-position">
+
+					<form action = "{% url 'document' %}" method = "POST">
+						{% csrf_token %}
+						<input type = "text" name = "document" class = "input-no-show" value = "{{document.docname}}" readonly>
+						<button class = "icon" id = "edit-icon" href = "{% url 'document' %}">
+							<img src = "{% static 'media/edit-icon.png' %}" width = "15px" alt = "edit">
+						</button>						
+					</form>
+
+					<form action = "{% url 'pindoc' %}" method = "POST">
+						{% csrf_token %}
+						<input type = "text" name = "pinname" class = "input-no-show" value = "{{document.docname}}" readonly>
+						<button class = "icon" id = "pin-icon" href = "{% url 'pindoc' %}">
+							<img src = "{% static 'media/pin.png' %}" width = "15px" alt = "pin">
+						</button> 
+					</form>
+
+					<form action = "{% url 'delete' %}" method = "POST">
+						{% csrf_token %}
+						<input type = "text" name = "deletename" class = "input-no-show" value = "{{document.docname}}" readonly>
+						<button class = "icon" id = "delete-icon">
+							<img src = "{% static 'media/delete.png' %}" width = "15px" alt = "delete">
+						</button>
+					</form>
+
+					</span>
+					<span class = "dname" style="display:block;text-overflow: ellipsis; height:95px;width: 160px;overflow: hidden; white-space: nowrap;">
+						{{document.docname}}
+					</span>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+	{% endblock %}
+	<script>
+		$(window).on("load",function(){
+     $(".loader-wrapper").fadeOut("slow");
+});
+	</script>
+	<div class = "loader-wrapper">
+		<span class = "loader"><span class = "loader-inner"></span></span>
+	</div>
+</body>
+</html>

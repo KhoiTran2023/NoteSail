@@ -1,0 +1,71 @@
+{% extends 'index/layout0.html' %}
+
+{% block head %}
+<style>
+#nav-capt {
+		font-family:system-ui;
+		z-index:2;
+		font-weight:lighter;
+		position:fixed;
+		right:2%;
+		top:4%;
+		font-size:150%;
+	}
+
+	.signup-href {
+		text-decoration:none;
+	}
+
+	#nav-capt a:visited {
+		color:blue;
+	}
+
+	#info-box {
+		width:65%;
+		padding:2.5%;
+		height:55%;
+		overflow-y:auto;
+		background-color:white;
+		position:absolute;
+		left:15%;
+		top:20%;
+	}
+
+	.caption {
+		font-family:sans-serif;
+	}
+</style>
+{% endblock %}
+
+{% block body %}
+{% if not user.is_authenticated %}
+<div id = "nav-capt">
+	<a href = "{% url 'signin' %}" class = "signup-href"> Log in </a>
+</div>
+{% endif %}
+{% if user.is_authenticated %}
+<div id = "nav-capt">
+	<a href = "{% url 'logout' %}" class = "signup-href"> Sign out </a>
+</div>
+{% endif %}
+<div id = "info-box">
+	<div style = "font-size:40px;font-family:system-ui;">Who are we?</div><br>
+	<div class = "caption">
+		Actually, before today, it was 'who am I?' This company started out from an ambitious 15-year-old into<br>
+		website coding, and before he knew it, he was programming left and right. He used this as one of his projects,<br>
+		and turns out, this become a company! <br>
+		Now, NoteSail is a utilities company focused on programming software for office benefits, such as office <br>
+		workers, college students, and much more for all the ambitious people on the earth!<br>
+		From our office to yours (or your home of course!), we are and have a dedicated team of people, like you and I,<br>
+		that only want what is best for YOU, the customer.<br><br>
+		Our first software was NoteBoat, released in 2020. Although it was not nearly as great as the competitive giants,<br>
+		the software was evolving at an unimaginably quick rate. Now we have at least server for every continent and <br>
+		have employed over 100,000 workers!<br><br>
+		If you have any comments and/or concerns, please feel free to share them with us <a href = "{% url 'feedbak' %}">here!</a><br>
+		Your voice matters greatly to us.<br>
+		Happy noting!
+
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'landings/home.html' %}
+
+{% block head %}
+{% load static %}
+
+{% endblock %}
+{% block body %}
+
+<div id = "document-header">
+<form method = "POST" action = "{% url 'rename' %}">
+	{% csrf_token %}
+	<input class = "old-name" name = "oldname" value = "{{document.docname}}" readonly>
+	<input id = "document-header-name" name = "newname" placeholder = "{{document.docname}}">
+	<button class = "button-type" type = "submit"><img src = "{% static 'media/edit-icon.png' %}" width  = "20px"></button>
+</form>
+</div>
+
+<div id = "text">
+	<form method = "POST" id = "save" action = "{% url 'save' %}">
+		{% csrf_token %}
+		<input class = "old-name" name = "oldname" value = "{{document.docname}}" readonly>
+		<textarea name = "text-input" id = "text-input" cols = "100" autofocus>{{document.text}}</textarea>
+	</form>
+	
+</div>
+<button form = "save" id = "text-submit" type = "submit"><img src = "{% static 'media/save-icon.ico' %}" width = 15px /></button>
+<img id = "arrow" src = "{% static 'media/arrow.png' %}" width = 40px>
+{% endblock %}
