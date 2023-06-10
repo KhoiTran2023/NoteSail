@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/layout0.css' %}">
+	<link rel="icon" href="{% static 'media/sail-boat-icon.ico' %}">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script>
+		var i = 0;
+		i++;
+		i++;
+	</script>
+	{% block head %}
+	{% endblock %}
+	<style>
+		#home-nav:link, #home-nav:visited {
+			text-decoration:none;
+			color:inherit;
+		}
+	</style>
+</head>
+<body>
+
+	{% block body %}
+	{% endblock %}
+
+	<div id = "nav-bar-top">
+		<h1><a id = "home-nav" href = "{% url 'noteboat' %}">
+			<span id = "h1" >NoteSail<span class = "smol">&#174;</span></span>
+			<img src = "{% static 'media/sail-boat-icon.png' %}" id = "nav-icon" width = "5%" />
+		</a></h1>
+	</div>
+
+	<div id = "nav-menu-bottom">
+		<div id = "column1">
+			<a class = "a" href = "{% url 'contact' %}"><div> Contact us </div></a>
+			<a class = "a" href = "{% url 'contact' %}"><div> Customer Support Hotline </div></a>
+			<a class = "a" href = "{% url 'privacy' %}"><div> Privacy policy </div></a>
+			<a class = "a" href = "{% url 'termsco' %}"><div> Terms & Conditions </div></a>
+			<a class = "a" href = "{% url 'feedbak' %}"><div> Give us feedback </div></a>
+			<div style = "font-size:50%;line-height:10px;"> For your privacy, it is recommended that you do not use online payments to pay for <br>online subscription but instead call or contact our customer support to order there. <br>NoteSail is restricted to your privacy. Using developer mode, users should use another <br>users account to remain safe. Features to view another user's work can be requested <br>to open to public.<br><br>
+			<span class = "smol"><span class = "symbol">&#169;</span>Copyright 2020-2021, NoteSail Inc.</span>
+			</div>
+		</div>
+		<div id = "column2">
+			<a class = "a" href = "{% url 'aboutus' %}"> About us </a> 
+			<a href = "https://www.instagram.com/" class = "a"><div> Instagram </div></a>
+			<a href = "https://www.facebook.com/" class = "a"><div> Facebook </div></a>
+			<a href = "https://www.pinterest.com/" class = "a"><div> Pinterest </div></a>
+			<a href = "https://twitter.com/" class = "a"><div> Twitter </div></a>
+		</div>
+	</div>
+		<script>
+		$(window).on("load",function(){
+     $(".loader-wrapper").fadeOut("slow");
+});
+	</script>
+	<div class = "loader-wrapper">
+		<span class = "loader"><span class = "loader-inner"></span></span>
+	</div>
+</body>
+</html>

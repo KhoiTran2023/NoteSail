@@ -1,0 +1,141 @@
+{% extends 'index/recover.html' %}
+
+{% block head %}
+<style>
+	#nav-capt {
+		font-family:system-ui;
+		z-index:2;
+		font-weight:lighter;
+		position:fixed;
+		right:2%;
+		top:4%;
+		font-size:150%;
+	}
+
+	#signup-href {
+		text-decoration:none;
+	}
+
+	#nav-capt a:visited {
+		color:blue;
+	}
+
+	#signin-box-div {
+		border-radius:5px;
+		position:absolute;
+		width:30%;
+		left:33%;
+		right:30%;
+		height:60%;
+		top:20%;
+		background-color:white;
+		border:1px solid rgba(100,100,100,0.2);
+		padding:20px;
+		padding-left:30px;
+		overflow-y:auto;
+	}
+
+	#para-box-signin {
+		font-family:system-ui;
+		font-size:30px;
+		text-align:left;
+	}
+
+	#para-box0-signin {
+		font-family:system-ui;
+		font-size:40px;
+		font-weight:lighter;
+	}
+
+	.inputfield {
+		width:70%;
+		height:30px;
+		border-radius:3px;
+		border:solid;
+		border-color:rgb(200,200,200);
+		padding-left:10px;
+	}
+
+	#submit {
+		border-radius:3px;
+		border:solid blue;
+		color:white;
+		background-color:blue;
+		width:15%;
+		height:30px;
+		transition:0.15s;
+	}
+
+	#submit:hover {
+		background-color:#dbdbdb;
+		border-color:#dbdbdb;
+	}
+
+	.inputfield:hover {
+		position:relative;
+		left:10px;
+	}
+
+	.undertext {
+		font-family:system-ui;
+		transition:0.15s;
+		border-radius:2px;
+		text-decoration:none;
+		color:blue;
+		font-weight:500;
+	}
+
+	.undertext:hover {
+		background-color:#dbdbdb;
+	}
+</style>
+<script language='javascript' type='text/javascript'>
+    function check(input) {
+        if (input.value != document.getElementById('password').value) {
+            input.setCustomValidity('Password Must be Matching.');
+        } else {
+            // input is valid -- reset the error message
+            input.setCustomValidity('');
+        }
+    }
+</script>
+{% endblock %}
+{% block zero %}
+
+<div id = "para-box0-signin">
+		Great! 
+	</div>
+	<div id = "para-box-signin">
+		Only one more step
+	</div>
+	<br>
+	
+	{% if message %}
+	<div class = "undertext" style = "color:green;">{{ message }}</div><br>
+	{% endif %}
+	<form action = "{% url 'recoverthree' %}" method = "post" id = "recovery-form">
+		{% csrf_token %}
+		<label for = "email" style="font-family:system-ui;color:blue;">User email</label><br>
+		<input class = "inputfield" name = "email" id = "email" type = "text" value = "{{user}}" readonly><br><br>
+		<label for = "email" style="font-family:system-ui;color:blue;">Change password</label><br>
+		<input class = "inputfield" name = "password" id = "password" type = "password" placeholder = "New password" required><br><br>
+		<input class = "inputfield" name = "confirm_password" id = "confirm_password" type = "password" placeholder = "Confirm password" required><br><br>
+	</form>
+	<button id = "submit" onclick = "return Validate()">submit</button><br>
+
+	<br>
+	<div class = "undertext">Need extra help? Contact an agent <a href = "{% url 'contact' %}">here.</a></div>
+
+	<script type="text/javascript">
+    function Validate() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+        if (password != confirmPassword) {
+            alert("Passwords do not match. Try again.");
+            return false;
+        
+        }
+        return document.getElementById("recovery-form").submit();
+    }
+</script>
+{% endblock %}

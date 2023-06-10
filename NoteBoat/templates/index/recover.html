@@ -1,0 +1,128 @@
+{% extends 'index/layout0.html' %}
+
+{% block head %}
+
+<style>
+	#nav-capt {
+		font-family:system-ui;
+		z-index:2;
+		font-weight:lighter;
+		position:fixed;
+		right:2%;
+		top:4%;
+		font-size:150%;
+	}
+
+	#signup-href {
+		text-decoration:none;
+	}
+
+	#nav-capt a:visited {
+		color:blue;
+	}
+
+	#signin-box-div {
+		border-radius:5px;
+		position:absolute;
+		width:30%;
+		left:33%;
+		right:30%;
+		height:60%;
+		top:20%;
+		background-color:white;
+		border:1px solid rgba(100,100,100,0.2);
+		padding:20px;
+		padding-left:30px;
+		overflow-y:auto;
+	}
+
+	#para-box-signin {
+		font-family:system-ui;
+		font-size:30px;
+		text-align:left;
+	}
+
+	#para-box0-signin {
+		font-family:system-ui;
+		font-size:40px;
+		font-weight:lighter;
+	}
+
+	.inputfield {
+		width:70%;
+		height:30px;
+		border-radius:3px;
+		border:solid;
+		border-color:rgb(200,200,200);
+		padding-left:10px;
+	}
+
+	#submit {
+		border-radius:3px;
+		border:solid blue;
+		color:white;
+		background-color:blue;
+		width:15%;
+		height:30px;
+		transition:0.15s;
+	}
+
+	#submit:hover {
+		background-color:#dbdbdb;
+		border-color:#dbdbdb;
+	}
+
+	.inputfield:hover {
+		position:relative;
+		left:10px;
+	}
+
+	.undertext {
+		font-family:system-ui;
+		transition:0.15s;
+		border-radius:2px;
+		text-decoration:none;
+		color:blue;
+		font-weight:500;
+	}
+
+	.undertext:hover {
+		background-color:#dbdbdb;
+	}
+</style>
+{% endblock %}
+
+{% block body %}
+<div id = "nav-capt">
+	<a href = "{% url 'signin' %}" id = "signup-href"> Log in </a>
+</div>
+
+<div id = "signin-box-div">
+	{% block zero %}
+	<div id = "para-box0-signin">
+		Forgot password?
+	</div>
+	<div id = "para-box-signin">
+		Answer these questions
+	</div>
+	<br>
+	
+	{% if message %}
+	<div class = "undertext" style = "color:red;">{{ message }}</div><br>
+	{% endif %}
+	<form action = "{% url 'recovertry' %}" method = "post">
+		{% csrf_token %}
+		<input class = "inputfield" name = "fname" id = "fname" type = "text" placeholder = "First Name" required><br><br>
+		<input class = "inputfield" name = "email" id = "email" type = "text" placeholder = "Email" required><br><br>
+		<label for = "security" style = "font-family:system-ui;color:blue;">What was the name of your favorite teacher?</label><br>
+		<input class = "inputfield"	name = security id = "security" type = "text" placeholder = "Security answer" required><br><br>
+		<label for = "rcode" style = "font-family:system-ui;color:blue;">Enter your recovery code in the field below</label><br>
+		<input class = "inputfield" name = rcode id = rcode type = number placeholder = "Your recovery code" maxlength="6" required><br><br>
+		<input type = "submit" id = submit value = "submit">
+	</form>
+	
+	<br>
+	<div class = "undertext">Need extra help? Contact an agent <a href = "{% url 'contact' %}">here.</a></div>
+	{% endblock %}
+</div>
+{% endblock %}

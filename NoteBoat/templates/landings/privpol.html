@@ -1,0 +1,52 @@
+{% extends 'index/layout0.html' %}
+
+{% block head %}
+<style>
+#nav-capt {
+		font-family:system-ui;
+		z-index:2;
+		font-weight:lighter;
+		position:fixed;
+		right:2%;
+		top:4%;
+		font-size:150%;
+	}
+
+	.signup-href {
+		text-decoration:none;
+	}
+
+	#nav-capt a:visited {
+		color:blue;
+	}
+
+	#info-box {
+		width:65%;
+		padding:2.5%;
+		height:55%;
+		overflow-y:auto;
+		background-color:white;
+		position:absolute;
+		left:15%;
+		top:20%;
+	}
+</style>
+{% endblock %}
+{% block body %}
+{% load static %}
+{% if not user.is_authenticated %}
+<div id = "nav-capt">
+	<a href = "{% url 'signin' %}" class = "signup-href"> Log in </a>
+</div>
+{% endif %}
+{% if user.is_authenticated %}
+<div id = "nav-capt">
+	<a href = "{% url 'logout' %}" class = "signup-href"> Sign out </a>
+</div>
+{% endif %}
+<div id = "info-box">
+	<div style = "font-size:40px;font-family:system-ui;">How we respect your privacy</div>
+	<iframe src = "{% static 'media/pripol.pdf' %}" width=100% height=80%></iframe>
+</div>
+
+{% endblock %}

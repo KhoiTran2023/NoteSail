@@ -1,0 +1,88 @@
+{% extends 'index/layout0.html' %}
+
+{% block head %}
+
+<style>
+	#nav-capt {
+		font-family:system-ui;
+		z-index:2;
+		font-weight:lighter;
+		position:fixed;
+		right:2%;
+		top:4%;
+		font-size:150%;
+	}
+
+	.signup-href {
+		text-decoration:none;
+	}
+
+	#nav-capt a:visited {
+		color:blue;
+	}
+
+	#info-box {
+		width:65%;
+		padding:2.5%;
+		height:55%;
+		overflow-y:auto;
+		background-color:white;
+		position:absolute;
+		left:15%;
+		top:20%;
+	}
+
+	#info-title {
+		font-family:system-ui;
+		font-size:40px;
+	}
+
+	.caption {
+		font-family:sans-serif;
+		color:green;
+
+	}
+</style>
+
+{% endblock %}
+
+{% block body %}
+{% if not user.is_authenticated %}
+<div id = "nav-capt">
+	<a href = "{% url 'signin' %}" class = "signup-href"> Log in </a>
+</div>
+{% endif %}
+{% if user.is_authenticated %}
+<div id = "nav-capt">
+	<a href = "{% url 'logout' %}" class = "signup-href"> Sign out </a>
+</div>
+{% endif %}
+<div id = "info-box">
+	<div id = "info-title"> Contact us </div><br>
+	<div class = "caption"> Our hotlines are available 24 hours a day, so need to wait, go ahead and reach out to us! </div><br><br>
+	<div class = "caption"> Give us a call for customer support at (555)-101-0199<br> or email cs@notesailcs.com</div><br><br>
+	<div class = "caption"> For our internet division, take a peek at our hotline at (555)-199-9111<br> or email id@notesailcs.com</div><br><br>
+	<div class = "caption"> To contact headquarters, go through our representative at (555)-000-0000<br>or email nsrep@notesailhq.com</div><br><br>
+	<div class = "caption"> For regional representatives by country:
+		<ul><u>
+			<li> United States: (555)-555-5555 or usregion@notesailna.com</li>
+			<li> Canada: (555)-555-5556 or canregion@notesailna.com</li>
+			<li> Australia: (555)-555-5557 or ausregion@notesailaus.com</li>
+			<li> India: (555)-555-5558 or indregion@notesailasia.com</li>
+			<li> Germany: (555)-555-5559 or gerregion@notesaileu.com</li>
+		</u></ul>
+	</div>
+	<div class = "caption"> For regional representative by server:
+		<ul><u>
+			<li> North America(NA) 1: (555)-202-0001 or email naserverone@notesailna.com</li>
+			<li> North America(NA) 2: (555)-202-0002 or email naservertwo@notesailna.com</li>
+			<li> South America(NA): (555)-201-1919 or email saserver@notesailsa.com</li>
+			<li> Europe(EU) 1: (555)-200-0001 or email euserverone@notesaileu.com</li>
+			<li> Europe(EU) 2: (555)-200-0002 or email euservertwo@notesaileu.com</li>
+			<li> Asia(AS): (555)-199-1919 or email asserver@notesailas.com</li>
+			<li> Australia(AUS): (555)-198-1919 or email ausserver@notesailaus.com</li>
+			<li> Africa(AF): (555)-200-0003 or email euserverthree@notesaileu.com</li>
+		</u></ul> 
+	</div>
+</div>
+{% endblock %}
